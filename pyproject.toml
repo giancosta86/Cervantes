@@ -1,0 +1,136 @@
+[tool.poetry]
+
+name = 'info.gianlucacosta.cervantes'
+
+version = '1.0.0'
+
+description = 'Extract a compact Spanish dictionary from Wikcionario, with elegance'
+
+authors = ['Gianluca Costa <gianluca@gianlucacosta.info>']
+
+license = 'MIT'
+
+readme = 'README.md'
+
+repository = 'https://github.com/giancosta86/Cervantes'
+
+documentation = 'https://github.com/giancosta86/Cervantes'
+
+keywords = [
+  'library',
+  'extract',
+  'wiki',
+  'pages',
+  'dictionary',
+  'Wiktionary',
+  'Wikcionario',
+  'Spanish',
+]
+
+classifiers = [
+  'Development Status :: 5 - Production/Stable',
+  'Intended Audience :: Developers',
+  'License :: OSI Approved :: MIT License',
+  'Operating System :: OS Independent',
+  'Programming Language :: Python',
+  'Topic :: Text Processing :: Linguistic',
+  'Natural Language :: Spanish',
+]
+
+packages = [{ include = 'info', from = 'src' }]
+
+
+[tool.poetry.dependencies]
+
+python = '^3.10'
+"info.gianlucacosta.wikiprism" = "^1.0.0"
+
+
+[tool.poetry.dev-dependencies]
+
+pytest = '^6.0'
+black = '^22.1.0'
+poethepoet = '^0.13.1'
+mypy = '^0.942'
+pytest-cov = '^3.0.0'
+isort = "^5.10.1"
+flake8 = "^4.0.1"
+twine = "^4.0.0"
+
+
+[build-system]
+
+requires = ['poetry-core>=1.0.0']
+build-backend = 'poetry.core.masonry.api'
+
+
+[tool.isort]
+
+profile = "black"
+line_length = 99
+
+
+[tool.black]
+
+line-length = 99
+
+
+[tool.mypy]
+
+mypy_path = '$MYPY_CONFIG_FILE_DIR/src'
+
+python_version = '3.10'
+
+namespace_packages = true
+explicit_package_bases = true
+
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+show_error_codes = true
+
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_any_generics = true
+
+
+[[tool.mypy.overrides]]
+
+module = 'tests.*'
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+
+
+[tool.poe.tasks]
+
+check = ['check-imports', 'check-format', 'check-types', 'check-style', 'test']
+
+test = 'pytest --cov=info.gianlucacosta.cervantes --cov-report html --cov-report term tests'
+
+sort-imports = 'isort src tests'
+
+format = 'black src tests'
+
+check-imports = 'isort --check-only src tests'
+
+check-format = 'black --check --color src tests'
+
+check-types = 'mypy src tests'
+
+check-style = 'flake8 src tests'
+
+pre-build = ['check']
+
+post-build = ['check-artifacts']
+
+check-artifacts = 'twine check dist/*'
+
+
+[tool.poe.tasks.clean]
+
+shell = '''
+  rm -rf dist
+  rm -rf htmlcov
+  rm .coverage
+'''
