@@ -2,7 +2,7 @@
 
 name = 'info.gianlucacosta.cervantes'
 
-version = '1.0.0'
+version = '1.1.0'
 
 description = 'Extract a compact Spanish dictionary from Wikcionario, with elegance'
 

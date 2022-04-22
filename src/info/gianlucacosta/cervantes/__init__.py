@@ -52,6 +52,10 @@ def create_sqlite_dictionary(connection: Connection) -> SpanishSqliteDictionary:
     return SpanishSqliteDictionary(connection)
 
 
+def get_wiki_url() -> str:
+    return get_wiktionary_url()
+
+
 def get_wiktionary_url() -> str:
     """
     Returns the url to official Wikcionario download file - or a local URL when in __debug__.
