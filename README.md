@@ -22,35 +22,43 @@ No matter the scenario, it is essential to explore the SQL schema of its underly
 
 To install **Cervantes**, just run:
 
-> pip install info.gianlucacosta.cervantes
+```bash
+pip install info.gianlucacosta.cervantes
+```
 
 or, if you are using Poetry:
 
-> poetry add info.gianlucacosta.cervantes
+```bash
+poetry add info.gianlucacosta.cervantes
+```
 
 ## Extracting a custom dictionary from Wikcionario
 
-Once Cervantes is installed in your Python environment, you can import it just like any other Python library - or you can run it within Jardinero's infrastructure!
+Once Cervantes is installed in your Python environment, you can import it just like any other Python library...
 
-In the latter case, make sure [Jardinero](https://github.com/giancosta86/Jardinero) is installed, then run:
+...or you can run it as an extension module within Jardinero's infrastructure! 🥳
 
-> python \[-OO\] -m info.gianlucacosta.jardinero info.gianlucacosta.cervantes
+Just make sure that both [Jardinero](https://github.com/giancosta86/Jardinero) and Cervantes are installed, then run:
 
-If you start Jardinero with the **-OO** flag:
+```bash
+python -OO -m info.gianlucacosta.jardinero info.gianlucacosta.cervantes
+```
 
-- the process will run slightly faster, but with less logging
+You will then be able to create a dictionary and perform SQL queries via Jardinero's web user interface.
 
-- Jardinero will download the very latest dump from Wikcionario's official download website
+Cervantes also supports Jardinero's _developer mode_: in that case, the system will refer to your local copy of Wikcionario - which **must** be a BZ2 archive residing at the following address:
 
-On the other hand, if you omit the flag:
+> http://localhost:8000/eswiktionary-latest-pages-articles.xml.bz2
 
-- you'll be able to see more logging messages
+Usually, you can make this URL available by running:
 
-- Jardinero will use your local copy of Wikcionario's dump - that **must** be a BZ2 archive residing at the following address: **http://localhost:8000/eswiktionary-latest-pages-articles.xml.bz2**. In particular, this address becomes accessible once you run:
+```bash
+python -m http.server
+```
 
-  > python -m http.server
+from within the directory containing your [Wikcionario dump file](https://dumps.wikimedia.org/eswiktionary/latest/eswiktionary-latest-pages-articles.xml.bz2).
 
-  from the directory containing your downloaded - and maybe customized - [Wikcionario dump file](https://dumps.wikimedia.org/eswiktionary/latest/eswiktionary-latest-pages-articles.xml.bz2).
+For a more detailed explanation about the developer mode, please refer to Jardinero's documentation.
 
 ## Database schema
 
